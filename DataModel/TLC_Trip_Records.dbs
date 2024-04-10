@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="TLC_Trip_Records" id="LogicalDesign-246c" database="LogicalDesign" >
+	<schema name="INSTANCE" catalogname="TLC_Trip_Records" >
+		<table name="DIm_HighVolumeForServices" prior="Entity_0" >
+			<column name="HVFS_ID" type="INT" jt="4" mandatory="y" />
+			<column name="HVFHS_LicenseNumber" type="VARCHAR" length="250" jt="12" />
+			<column name="HVFHS_Name" type="VARCHAR" length="250" jt="12" />
+			<index name="pk_DIm_HighVolumeForServices" unique="PRIMARY_KEY" >
+				<column name="HVFS_ID" />
+			</index>
+		</table>
+		<table name="Dim_Base" prior="Entity_0" >
+			<column name="BaseID" type="INT" jt="4" mandatory="y" />
+			<column name="DispatchingBaseNum" type="VARCHAR" length="250" jt="12" />
+			<column name="BaseLicenseNumber" type="VARCHAR" length="250" jt="12" />
+			<index name="pk_Dim_Base" unique="PRIMARY_KEY" >
+				<column name="BaseID" />
+			</index>
+		</table>
+		<table name="Dim_Date" prior="Entity_0" >
+			<column name="DateID" type="INT" jt="4" mandatory="y" />
+			<column name="DateOriginalFormat" type="VARCHAR" length="250" jt="12" />
+			<column name="DateISO_Format" type="DATETIME" length="250" jt="93" />
+			<column name="Year" type="INT" jt="4" />
+			<column name="Quarter" type="INT" jt="4" />
+			<column name="Month" type="INT" jt="4" />
+			<column name="DayNumber" type="INT" jt="4" />
+			<column name="HourNumber" type="INT" jt="4" />
+			<column name="MonthName" type="VARCHAR" length="250" jt="12" />
+			<column name="DayName" type="VARCHAR" length="250" jt="12" />
+			<column name="WeekofName" type="INT" jt="4" />
+			<column name="WeekofYear" type="INT" jt="4" />
+			<index name="pk_Dim_Date" unique="PRIMARY_KEY" >
+				<column name="DateID" />
+			</index>
+		</table>
+		<table name="Dim_Location" prior="Entity_0" >
+			<column name="LocationID" type="INT" jt="4" mandatory="y" />
+			<column name="Borough" type="VARCHAR" length="250" jt="12" />
+			<column name="ServiceZone" type="VARCHAR" length="250" jt="12" />
+			<column name="Zone" type="VARCHAR" length="250" jt="12" />
+			<column name="Lattitude" type="DECIMAL" length="7" decimal="2" jt="3" />
+			<column name="Longitude" type="DECIMAL" length="7" decimal="2" jt="3" />
+			<column name="IsBelow60thLine" type="BOOLEAN" jt="-7" />
+			<index name="pk_Dim_Location" unique="PRIMARY_KEY" >
+				<column name="LocationID" />
+			</index>
+		</table>
+		<table name="Dim_PaymentType" prior="Entity_0" >
+			<column name="PaymentTypeID" type="INT" jt="4" mandatory="y" />
+			<column name="PaymentType" type="VARCHAR" length="150" jt="12" />
+			<column name="PaymentDescription" type="VARCHAR" length="150" jt="12" />
+			<index name="pk_Dim_PaymentType" unique="PRIMARY_KEY" >
+				<column name="PaymentTypeID" />
+			</index>
+		</table>
+		<table name="Dim_RateCode" prior="Entity_0" >
+			<column name="RateCodeID" type="INT" jt="4" mandatory="y" />
+			<column name="RateCodeName" type="VARCHAR" length="250" jt="12" />
+			<index name="pk_Dim_RateCode" unique="PRIMARY_KEY" >
+				<column name="RateCodeID" />
+			</index>
+		</table>
+		<table name="Dim_TripType" prior="Entity_0" >
+			<column name="TripTypeID" type="INT" jt="4" mandatory="y" />
+			<column name="TripType" type="VARCHAR" length="250" jt="12" />
+			<index name="pk_Dim_TripType" unique="PRIMARY_KEY" >
+				<column name="TripTypeID" />
+			</index>
+		</table>
+		<table name="Dim_Vendor" prior="Entity_0" >
+			<column name="VendorID" type="INT" jt="4" mandatory="y" />
+			<column name="VendorName" type="VARCHAR" length="150" jt="12" />
+			<index name="pk_Dim_Vendor" unique="PRIMARY_KEY" >
+				<column name="VendorID" />
+			</index>
+		</table>
+		<table name="Entity" />
+		<table name="Facts_Trip" prior="Facts_R" >
+			<column name="FactsID" type="INT" jt="4" mandatory="y" />
+			<column name="VendorID" type="INT" jt="4" mandatory="y" />
+			<column name="PaymentTypeID" type="INT" jt="4" mandatory="y" />
+			<column name="PickupLocationID" type="INT" jt="4" mandatory="y" />
+			<column name="PickupDateID" type="INT" jt="4" mandatory="y" />
+			<column name="DropoffLocationID" type="INT" jt="4" mandatory="y" />
+			<column name="DropoffDateID" type="INT" jt="4" mandatory="y" />
+			<column name="TripTypeID" type="INT" jt="4" mandatory="y" />
+			<column name="HVFHS_ID" type="INT" jt="4" mandatory="y" />
+			<column name="RateCodeID" type="INT" jt="4" mandatory="y" />
+			<column name="BaseID" type="INT" jt="4" mandatory="y" />
+			<column name="PassengerCount" type="INT" jt="4" />
+			<column name="TripDistance" type="DECIMAL" length="7" decimal="2" jt="3" />
+			<column name="FareAmount" type="DECIMAL" length="7" decimal="2" jt="3" />
+			<column name="ExtraAmount" type="DECIMAL" length="7" decimal="2" jt="3" />
+			<column name="MTA_Tax" type="DECIMAL" length="7" decimal="2" jt="3" />
+			<column name="ImprovementSurcharge" type="DECIMAL" length="7" decimal="2" jt="3" />
+			<column name="TipAmount" type="DECIMAL" length="7" decimal="2" jt="3" />
+			<column name="TollsAmount" type="DECIMAL" length="7" decimal="2" jt="3" />
+			<column name="TotalAmount" type="DECIMAL" length="7" decimal="2" jt="3" />
+			<column name="CongestionSurcharge" type="DECIMAL" length="7" decimal="2" jt="3" />
+			<column name="AirportFee" type="DECIMAL" length="7" decimal="2" jt="3" />
+			<column name="SalesTax" type="DECIMAL" length="7" decimal="2" jt="3" />
+			<column name="DriverPay" type="DECIMAL" length="7" decimal="2" jt="3" />
+			<column name="BasePassengerFare" type="DECIMAL" length="7" decimal="2" jt="3" />
+			<column name="BlackCarFund" type="DECIMAL" length="7" decimal="2" jt="3" />
+			<column name="SubwayAmount" type="DECIMAL" length="7" decimal="2" jt="3" />
+			<column name="LIRR_Amount" type="DECIMAL" length="7" decimal="2" jt="3" />
+			<column name="NewTotalAmount" type="DECIMAL" length="7" decimal="2" jt="3" />
+			<index name="pk_Facts_Trip" unique="PRIMARY_KEY" >
+				<column name="FactsID" />
+			</index>
+			<fk name="fk_Facts_Trip_Dim_Vendor" virtual="y" to_schema="TLC_Trip_Records.INSTANCE" to_table="Dim_Vendor" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="VendorID" pk="VendorID" />
+			</fk>
+			<fk name="fk_Facts_Trip_Dim_PaymentType" virtual="y" to_schema="TLC_Trip_Records.INSTANCE" to_table="Dim_PaymentType" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="PaymentTypeID" pk="PaymentTypeID" />
+			</fk>
+			<fk name="fk_Facts_Trip_Dim_Location" virtual="y" to_schema="TLC_Trip_Records.INSTANCE" to_table="Dim_Location" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="PickupLocationID" pk="LocationID" />
+			</fk>
+			<fk name="fk_Facts_Trip_Dim_Date" virtual="y" to_schema="TLC_Trip_Records.INSTANCE" to_table="Dim_Date" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="PickupDateID" pk="DateID" />
+			</fk>
+			<fk name="fk_Facts_Trip_Dim_Location_0" virtual="y" to_schema="TLC_Trip_Records.INSTANCE" to_table="Dim_Location" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="DropoffLocationID" pk="LocationID" />
+			</fk>
+			<fk name="fk_Facts_Trip_Dim_Date_0" virtual="y" to_schema="TLC_Trip_Records.INSTANCE" to_table="Dim_Date" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="DropoffDateID" pk="DateID" />
+			</fk>
+			<fk name="fk_Facts_Trip_Dim_TripType" virtual="y" to_schema="TLC_Trip_Records.INSTANCE" to_table="Dim_TripType" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="TripTypeID" pk="TripTypeID" />
+			</fk>
+			<fk name="fk_Facts_Trip_DIm_HighVolumeForServices" virtual="y" to_schema="TLC_Trip_Records.INSTANCE" to_table="DIm_HighVolumeForServices" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="HVFHS_ID" pk="HVFS_ID" />
+			</fk>
+			<fk name="fk_Facts_Trip_Dim_RateCode" virtual="y" to_schema="TLC_Trip_Records.INSTANCE" to_table="Dim_RateCode" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="RateCodeID" pk="RateCodeID" />
+			</fk>
+			<fk name="fk_Facts_Trip_Dim_Base" virtual="y" to_schema="TLC_Trip_Records.INSTANCE" to_table="Dim_Base" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+				<fk_column name="BaseID" pk="BaseID" />
+			</fk>
+		</table>
+		<table name="PaymentType" prior="Entity_0" />
+	</schema>
+	<layout name="Default Layout" id="Layout-2a6" show_relation="columns" >
+		<entity schema="TLC_Trip_Records.INSTANCE" name="DIm_HighVolumeForServices" color="C1D8EE" x="656" y="80" />
+		<entity schema="TLC_Trip_Records.INSTANCE" name="Dim_Base" color="C1D8EE" x="96" y="48" />
+		<entity schema="TLC_Trip_Records.INSTANCE" name="Dim_Date" color="C1D8EE" x="672" y="368" />
+		<entity schema="TLC_Trip_Records.INSTANCE" name="Dim_Location" color="C1D8EE" x="48" y="480" />
+		<entity schema="TLC_Trip_Records.INSTANCE" name="Dim_PaymentType" color="C1D8EE" x="64" y="320" />
+		<entity schema="TLC_Trip_Records.INSTANCE" name="Dim_RateCode" color="C1D8EE" x="528" y="624" />
+		<entity schema="TLC_Trip_Records.INSTANCE" name="Dim_TripType" color="C1D8EE" x="624" y="240" />
+		<entity schema="TLC_Trip_Records.INSTANCE" name="Dim_Vendor" color="C1D8EE" x="64" y="208" />
+		<entity schema="TLC_Trip_Records.INSTANCE" name="Facts_Trip" color="C1D8EE" x="368" y="64" />
+	</layout>
+</project>
