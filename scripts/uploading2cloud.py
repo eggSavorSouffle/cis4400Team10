@@ -1,7 +1,7 @@
 from google.cloud import storage
 from google.oauth2 import service_account
 
-credentials = service_account.Credentials.from_service_account_file(r"C:\Users\16466\Desktop\cis4400Team10\cis4400Team10\scripts\Private Key\deteamproject-40bfde088380.json")
+credentials = service_account.Credentials.from_service_account_file(r"C:\Users\16466\Desktop\Private Key for team project\deteamproject-40bfde088380.json")
 storage_client = storage.Client(credentials=credentials)
 
 
