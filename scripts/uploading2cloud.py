@@ -30,4 +30,4 @@ def upload_blob(bucket_name, source_file_name, destination_blob_name):
 
 
 
-upload_blob("de-team-project", r"C:\Users\16466\Desktop\cis4400Team10\cis4400Team10\data\fhv_tripdata_2023-07.parquet", "modified-shape-418121")
+upload_blob("de-team-project", r"C:\Users\16466\Desktop\cis4400Team10\cis4400Team10\data\fhv_tripdata_2023-07.parquet", )
