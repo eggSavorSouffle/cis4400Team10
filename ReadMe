@@ -4,8 +4,8 @@ The project will have the following structure;  however you are free to deviate 
 
 Business Problem
  
-Give a description of the company.
-Give the requirements and any missing requirements you have found. 
+The Taxi and Limousine Commission (TLC) is in charge of the licensing and regulationg of NYC's taxi cabs, for hire vehicles, and paratransit vehicles.
+We want to know if the weather (precipitation, the wind speed for 10 and 100 meters, and temperature) had an impact on the distant trip. Similarly we are looking for the correlation between the TRIPS and the temperature, and the dissent trip. We are also looking for the TLC and FHV trips from July until December. We want to keep track of the lacation and borough of each trip and if it has an added $15 due to being below the 60th line.  
  
  
 Business Impact
