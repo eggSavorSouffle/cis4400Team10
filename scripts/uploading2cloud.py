@@ -1,33 +1,74 @@
 from google.cloud import storage
 from google.oauth2 import service_account
+import pandas as pd
+import os
+import time 
 
-credentials = service_account.Credentials.from_service_account_file(r"C:\Users\16466\Desktop\Private Key for team project\deteamproject-40bfde088380.json")
-storage_client = storage.Client(credentials=credentials)
+# Credentials for GCS service account
+try:
+    credentials = service_account.Credentials.from_service_account_file(r"C:\Users\16466\Desktop\Private Key for team project\deteamproject-40bfde088380.json")
+    storage_client = storage.Client(credentials=credentials)
+    print("GCS client initialized successfully.")
+except Exception as e:
+    print(f"Error initializing GCS client: {e}")
+
+# Function to upload a file to the GCS bucket
+def upload_blob(bucket_name, source_file_name, destination_blob_name, chunk_size=10485760):
+    start_time = time.time()
+    try:
+        if not os.path.exists(source_file_name):
+            print(f"File {source_file_name} does not exist.")
+            return
+        
+        bucket = storage_client.bucket(bucket_name)
+        blob = bucket.blob(destination_blob_name)
+        blob.chunk_size = chunk_size  
+
+        with open(source_file_name, 'rb') as file_data:
+            blob.upload_from_file(file_data)
+        
+        print(f"File {source_file_name} uploaded to {destination_blob_name}.")
+    except Exception as e:
+        print(f"Failed to upload file: {e}")
+
+    end_time = time.time()  
+    print(f"Upload time: {end_time - start_time} seconds")
+
+# List of file URLs and corresponding names for CSV files
+file_urls = [
+    'https://d37ci6vzurychx.cloudfront.net/trip-data/fhv_tripdata_2023-07.parquet',
+    'https://d37ci6vzurychx.cloudfront.net/trip-data/fhv_tripdata_2023-08.parquet',
+    'https://d37ci6vzurychx.cloudfront.net/trip-data/fhv_tripdata_2023-09.parquet',
+    'https://d37ci6vzurychx.cloudfront.net/trip-data/fhv_tripdata_2023-10.parquet',
+    'https://d37ci6vzurychx.cloudfront.net/trip-data/fhv_tripdata_2023-11.parquet',
+    'https://d37ci6vzurychx.cloudfront.net/trip-data/fhv_tripdata_2023-12.parquet'
+
+]
+
+file_names = [
+    'fhv_july.csv',
+    'fhv_august.csv',
+    'fhv_september.csv',
+    'fhv_october.csv',
+    'fhv_november.csv',
+    'fhv_december.csv'
+]
+
+# Process each file URL
+for url, file_name in zip(file_urls, file_names):
+    try:
+        # Load the dataset from the provided URL
+        df = pd.read_parquet(url)
+        print(f"Dataset loaded successfully from {url}.")
+
+        # Save the DataFrame to a CSV file
+        csv_file_path = file_name
+        df.to_csv(csv_file_path)
+        print(f"CSV file saved to {csv_file_path}.")
+
+        # Call the upload function with the appropriate arguments
+        upload_blob("de-team-project-bucket", csv_file_path, file_name)
+    except Exception as e:
+        print(f"Error with file {file_name}: {e}")
 
 
-def upload_blob(bucket_name, source_file_name, destination_blob_name):
-    """Uploads a file to the bucket."""
-    # The ID of your GCS bucket
-    bucket_name = "de-team-project-bucket"
-    # The path to your file to upload
-    source_file_name = r"C:\Users\16466\Desktop\cis4400Team10\cis4400Team10\data\fhv_tripdata_2023-07.parquet"
-    # The ID of your GCS object
-    destination_blob_name = "de-team-project-bucket"
-    bucket = storage_client.bucket(bucket_name)
-    blob = bucket.blob(destination_blob_name)
-
-    # Optional: set a generation-match precondition to avoid potential race conditions
-    # and data corruptions. The request to upload is aborted if the object's
-    # generation number does not match your precondition. For a destination
-    # object that does not yet exist, set the if_generation_match precondition to 0.
-    # If the destination object already exists in your bucket, set instead a
-    # generation-match precondition using its generation number.
-    generation_match_precondition = 0
-
-    blob.upload_from_filename(source_file_name, if_generation_match=generation_match_precondition)
-
-    print(f"File {source_file_name} uploaded to {destination_blob_name}.")
-
-
-
-upload_blob("de-team-project", r"C:\Users\16466\Desktop\cis4400Team10\cis4400Team10\data\fhv_tripdata_2023-07.parquet", )
