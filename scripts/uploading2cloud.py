@@ -3,6 +3,8 @@ from google.oauth2 import service_account
 import pandas as pd
 import os
 import time 
+from io import BytesIO
+import requests
 
 # Credentials for GCS service account
 try:
@@ -13,26 +15,17 @@ except Exception as e:
     print(f"Error initializing GCS client: {e}")
 
 # Function to upload a file to the GCS bucket
-def upload_blob(bucket_name, source_file_name, destination_blob_name, chunk_size=10485760):
-    start_time = time.time()
+def upload_blob(bucket_name, data, destination_blob_name):
     try:
-        if not os.path.exists(source_file_name):
-            print(f"File {source_file_name} does not exist.")
-            return
-        
         bucket = storage_client.bucket(bucket_name)
         blob = bucket.blob(destination_blob_name)
-        blob.chunk_size = chunk_size  
 
-        with open(source_file_name, 'rb') as file_data:
-            blob.upload_from_file(file_data)
-        
-        print(f"File {source_file_name} uploaded to {destination_blob_name}.")
+        data.seek(0)
+        blob.upload_from_file(data, content_type='application/octet-stream')
+        print(f"Data uploaded to {destination_blob_name} successfully.")
     except Exception as e:
-        print(f"Failed to upload file: {e}")
+        raise RuntimeError(f"Failed to upload data to {destination_blob_name}: {e}")
 
-    end_time = time.time()  
-    print(f"Upload time: {end_time - start_time} seconds")
 
 # List of file URLs and corresponding names for CSV files
 file_urls = [
@@ -69,50 +62,43 @@ file_urls = [
 ]
 
 file_names = [
-    'fhv_july.csv',
-    'fhv_august.csv',
-    'fhv_september.csv',
-    'fhv_october.csv',
-    'fhv_november.csv',
-    'fhv_december.csv',
+    'fhv_july.parquet',
+    'fhv_august.parquet',
+    'fhv_september.parquet',
+    'fhv_october.parquet',
+    'fhv_november.parquet',
+    'fhv_december.parquet',
 
-    'hv_july.csv',
-    'hv_august.csv',
-    'hv_september.csv',
-    'hv_october.csv',
-    'hv_november.csv',
-    'hv_december.csv',
+    'hv_july.parquet',
+    'hv_august.parquet',
+    'hv_september.parquet',
+    'hv_october.parquet',
+    'hv_november.parquet',
+    'hv_december.parquet',
 
-    'yellow_july.csv',
-    'yellow_august.csv',
-    'yellow_september.csv',
-    'yellow_october.csv',
-    'yellow_november.csv',
-    'yellow_december.csv',
+    'yellow_july.parquet',
+    'yellow_august.parquet',
+    'yellow_september.parquet',
+    'yellow_october.parquet',
+    'yellow_november.parquet',
+    'yellow_december.parquet',
 
-    'green_july.csv',
-    'green_august.csv',
-    'green_september.csv',
-    'green_october.csv',
-    'green_november.csv',
-    'green_december.csv'
+    'green_july.parquet',
+    'green_august.parquet',
+    'green_september.parquet',
+    'green_october.parquet',
+    'green_november.parquet',
+    'green_december.parquet'
 
 ]
 
 # Process each file URL
 for url, file_name in zip(file_urls, file_names):
     try:
-        # Load the dataset from the provided URL
-        df = pd.read_parquet(url)
-        print(f"Dataset loaded successfully from {url}.")
+        response = requests.get(url)
+        response.raise_for_status()  
 
-        # Save the DataFrame to a CSV file
-        csv_file_path = file_name
-        df.to_csv(csv_file_path)
-        print(f"CSV file saved to {csv_file_path}.")
-
-        # Call the upload function with the appropriate arguments
-        upload_blob("de-team-project-bucket", csv_file_path, file_name)
+        data = BytesIO(response.content)
+        upload_blob("de-team-project-bucket", data, file_name)
     except Exception as e:
         print(f"Error with file {file_name}: {e}")
-
