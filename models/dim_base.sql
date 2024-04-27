@@ -5,30 +5,36 @@
 }}
 
 
-SELECT DISTINCT dispatching_base_num, hvfhs_license_num
-FROM deteamproject.TLC_dataset.hv_july
+SELECT
+    ROW_NUMBER() OVER (ORDER BY dispatching_base_num, hvfhs_license_num) AS base_id,
+    dispatching_base_num,
+    hvfhs_license_num
+FROM (
+    SELECT DISTINCT dispatching_base_num, hvfhs_license_num
+    FROM deteamproject.TLC_dataset.hv_july
 
-UNION ALL
+    UNION ALL
 
-SELECT DISTINCT dispatching_base_num, hvfhs_license_num
-FROM deteamproject.TLC_dataset.hv_august
+    SELECT DISTINCT dispatching_base_num, hvfhs_license_num
+    FROM deteamproject.TLC_dataset.hv_august
 
-UNION ALL
+    UNION ALL
 
-SELECT DISTINCT dispatching_base_num, hvfhs_license_num
-FROM deteamproject.TLC_dataset.hv_september
+    SELECT DISTINCT dispatching_base_num, hvfhs_license_num
+    FROM deteamproject.TLC_dataset.hv_september
 
-UNION ALL
+    UNION ALL
 
-SELECT DISTINCT dispatching_base_num, hvfhs_license_num
-FROM deteamproject.TLC_dataset.hv_october
+    SELECT DISTINCT dispatching_base_num, hvfhs_license_num
+    FROM deteamproject.TLC_dataset.hv_october
 
-UNION ALL
+    UNION ALL
 
-SELECT DISTINCT dispatching_base_num, hvfhs_license_num
-FROM deteamproject.TLC_dataset.hv_november
+    SELECT DISTINCT dispatching_base_num, hvfhs_license_num
+    FROM deteamproject.TLC_dataset.hv_november
 
-UNION ALL
+    UNION ALL
 
-SELECT DISTINCT dispatching_base_num, hvfhs_license_num
-FROM deteamproject.TLC_dataset.hv_december
+    SELECT DISTINCT dispatching_base_num, hvfhs_license_num
+    FROM deteamproject.TLC_dataset.hv_december
+) AS combined_data
