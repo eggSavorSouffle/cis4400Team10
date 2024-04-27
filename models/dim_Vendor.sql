@@ -36,4 +36,4 @@ FROM (
 
     SELECT DISTINCT VendorID
     FROM deteamproject.TLC_dataset.yellow_december
-) AS combined_vendors;
+) AS combined_vendors
