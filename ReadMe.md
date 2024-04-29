@@ -26,11 +26,12 @@ We have many sources of data primarly coming from TLC's api. From TLC we took Ye
 ----------------------
 When we first understood our datasets to be used we used python and jupyter notebooks and via APIs we extracted and played with some of the data. Using the data dictionaries given we were able to clarify what exactly we are dealing with. We then used DbSchema to generate a logical model. Next we had to deal with the extraction of all datasets and uploading them directly to our cloud of choice Google Cloud Storage. In order to procceed we had to create an account and ensure our familiarity with GCS. We interacted with IAM, Big Query and Cloud Storage. Once we uploaded, we used dbt to make the appropriate dimensions and fact table based on our model mentioned earlier. To conclude things we used Power BI for the visualizations.
 
+![alt text](image-6.png)
 **Data Tools**
 ----------------------
 Data Storage used was Big Query via GCS and we used python scripts and jupyter notebooks to ingest the data. We discussed the possibilty of using terraform to help automate our data pipeline, but we decided to save that for the future!
 
-
+![alt text](image-7.png)
 **Interface**
 ----------------------
 Feel free to view our Power BI visualization: 
