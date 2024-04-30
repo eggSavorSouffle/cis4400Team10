@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="weather_df" id="LogicalDesign-246c" database="LogicalDesign" >
+    <schema name="INSTANCE" catalogname="weather_df" >
+        <table name="dim_weathertime" prior="Entity_0" >
+            <column name="time_id" type="INT" jt="4" mandatory="y" />
+            <column name="day_of_week" type="VARCHAR" length="20" jt="12" />
+            <column name="month_number" type="INT" jt="4" mandatory="y" />
+            <column name="month_name" type="VARCHAR" length="20" jt="12" />
+            <index name="pk_dim_time" unique="PRIMARY_KEY" >
+                <column name="time_id" />
+            </index>
+        </table>
+        <table name="dim_time_weather" prior="Entity_0" >
+            <column name="location_id" type="INT" jt="4" mandatory="y" />
+            <column name="borough" type="VARCHAR" length="50" jt="12" />
+            <column name="latitude" type="DECIMAL" length="9" decimal="6" jt="3" />
+            <column name="longitude" type="DECIMAL" length="9" decimal="6" jt="3" />
+            <index name="pk_dim_location" unique="PRIMARY_KEY" >
+                <column name="location_id" />
+            </index>
+        </table>
+        <table name="facts_weather" prior="Entity_0" >
+            <column name="date" type="DATETIME" />
+            <column name="time_id" type="INT" jt="4" mandatory="y" />
+            <column name="location_id" type="INT" jt="4" mandatory="y" />
+            <column name="temperature_2m" type="FLOAT" />
+            <column name="relative_humidity_2m" type="FLOAT" />
+            <column name="precipitation" type="FLOAT" />
+            <column name="rain" type="FLOAT" />
+            <column name="wind_speed_10m" type="FLOAT" />
+            <column name="wind_speed_100m" type="FLOAT" />
+            <column name="wind_direction_10m" type="FLOAT" />
+            <column name="wind_direction_100m" type="FLOAT" />
+            <column name="wind_gusts_10m" type="FLOAT" />
+            <column name="is_day" type="BOOLEAN" />
+            <index name="pk_facts" unique="PRIMARY_KEY" >
+                <column name="date" />
+            </index>
+            <fk name="fk_facts_dim_time" virtual="y" to_schema="INSTANCE" to_table="dim_time" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+                <fk_column name="time_id" pk="time_id" />
+            </fk>
+            <fk name="fk_facts_dim_location" virtual="y" to_schema="INSTANCE" to_table="dim_location" type="NonIdentifying" mandatory="y" cardinality="OneMore" range_from="0" range_to="0" >
+                <fk_column name="location_id" pk="location_id" />
+            </fk>
+        </table>
+    </schema>
+    <layout name="Default Layout" id="Layout-2a6" show_relation="columns" >
+        <entity schema="INSTANCE" name="dim_time_weather" color="C1D8EE" x="656" y="80" />
+        <entity schema="INSTANCE" name="dim_location_weather" color="C1D8EE" x="96" y="48" />
+        <entity schema="INSTANCE" name="facts_weather" color="C1D8EE" x="672" y="368" />
+    </layout>
+</project>
