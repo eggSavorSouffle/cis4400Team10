@@ -2,13 +2,14 @@
     config(
          materialized='table'
     )
-}}
+}} 
 
 WITH 
 hv_july AS (
     SELECT
         h.*,
-        l.*
+        l.*,
+        TIMESTAMP_TRUNC(TIMESTAMP(FORMAT_TIMESTAMP('%Y-%m-%d %H:%M:%S', TIMESTAMP_SUB(TIMESTAMP_SUB(pickup_datetime, INTERVAL EXTRACT(HOUR FROM pickup_datetime) HOUR), INTERVAL EXTRACT(MINUTE FROM pickup_datetime) MINUTE))), HOUR) AS weather_date
     FROM
         `deteamproject.TLC_dataset.hv_july` AS h
     JOIN
@@ -19,7 +20,8 @@ hv_july AS (
 hv_august AS (
     SELECT
         h.*,
-        l.*
+        l.*,
+        TIMESTAMP_TRUNC(TIMESTAMP(FORMAT_TIMESTAMP('%Y-%m-%d %H:%M:%S', TIMESTAMP_SUB(TIMESTAMP_SUB(pickup_datetime, INTERVAL EXTRACT(HOUR FROM pickup_datetime) HOUR), INTERVAL EXTRACT(MINUTE FROM pickup_datetime) MINUTE))), HOUR) AS weather_date
     FROM
         `deteamproject.TLC_dataset.hv_august` AS h
     JOIN
@@ -30,7 +32,8 @@ hv_august AS (
 hv_september AS (
     SELECT
         h.*,
-        l.*
+        l.*,
+        TIMESTAMP_TRUNC(TIMESTAMP(FORMAT_TIMESTAMP('%Y-%m-%d %H:%M:%S', TIMESTAMP_SUB(TIMESTAMP_SUB(pickup_datetime, INTERVAL EXTRACT(HOUR FROM pickup_datetime) HOUR), INTERVAL EXTRACT(MINUTE FROM pickup_datetime) MINUTE))), HOUR) AS weather_date
     FROM
         `deteamproject.TLC_dataset.hv_september` AS h
     JOIN
@@ -41,7 +44,8 @@ hv_september AS (
 hv_october AS (
     SELECT
         h.*,
-        l.*
+        l.*,
+        TIMESTAMP_TRUNC(TIMESTAMP(FORMAT_TIMESTAMP('%Y-%m-%d %H:%M:%S', TIMESTAMP_SUB(TIMESTAMP_SUB(pickup_datetime, INTERVAL EXTRACT(HOUR FROM pickup_datetime) HOUR), INTERVAL EXTRACT(MINUTE FROM pickup_datetime) MINUTE))), HOUR) AS weather_date
     FROM
         `deteamproject.TLC_dataset.hv_october` AS h
     JOIN
@@ -52,7 +56,8 @@ hv_october AS (
 hv_november AS (
     SELECT
         h.*,
-        l.*
+        l.*,
+        TIMESTAMP_TRUNC(TIMESTAMP(FORMAT_TIMESTAMP('%Y-%m-%d %H:%M:%S', TIMESTAMP_SUB(TIMESTAMP_SUB(pickup_datetime, INTERVAL EXTRACT(HOUR FROM pickup_datetime) HOUR), INTERVAL EXTRACT(MINUTE FROM pickup_datetime) MINUTE))), HOUR) AS weather_date
     FROM
         `deteamproject.TLC_dataset.hv_november` AS h
     JOIN
@@ -63,7 +68,8 @@ hv_november AS (
 hv_december AS (
     SELECT
         h.*,
-        l.*
+        l.*,
+        TIMESTAMP_TRUNC(TIMESTAMP(FORMAT_TIMESTAMP('%Y-%m-%d %H:%M:%S', TIMESTAMP_SUB(TIMESTAMP_SUB(pickup_datetime, INTERVAL EXTRACT(HOUR FROM pickup_datetime) HOUR), INTERVAL EXTRACT(MINUTE FROM pickup_datetime) MINUTE))), HOUR) AS weather_date
     FROM
         `deteamproject.TLC_dataset.hv_december` AS h
     JOIN
@@ -82,3 +88,4 @@ UNION ALL
 SELECT * FROM hv_november
 UNION ALL
 SELECT * FROM hv_december
+
