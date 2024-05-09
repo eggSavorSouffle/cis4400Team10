@@ -1,3 +1,9 @@
+{{
+    config(
+         materialized='table'
+    )
+}}
+
 WITH 
 yellow_july AS (
     SELECT
