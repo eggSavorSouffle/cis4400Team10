@@ -8,7 +8,8 @@ WITH
 yellow_july AS (
     SELECT
         y.*,
-        l.*
+        l.*,
+        TIMESTAMP_TRUNC(TIMESTAMP(FORMAT_TIMESTAMP('%Y-%m-%d %H:%M:%S', TIMESTAMP_SUB(TIMESTAMP_SUB(tpep_pickup_datetime, INTERVAL EXTRACT(HOUR FROM tpep_pickup_datetime) HOUR), INTERVAL EXTRACT(MINUTE FROM tpep_pickup_datetime) MINUTE))), HOUR) AS weather_date
     FROM
         `deteamproject.TLC_dataset.yellow_july` AS y
     JOIN
@@ -19,7 +20,8 @@ yellow_july AS (
 yellow_august AS (
     SELECT
         y.*,
-        l.*
+        l.*,
+        TIMESTAMP_TRUNC(TIMESTAMP(FORMAT_TIMESTAMP('%Y-%m-%d %H:%M:%S', TIMESTAMP_SUB(TIMESTAMP_SUB(tpep_pickup_datetime, INTERVAL EXTRACT(HOUR FROM tpep_pickup_datetime) HOUR), INTERVAL EXTRACT(MINUTE FROM tpep_pickup_datetime) MINUTE))), HOUR) AS weather_date
     FROM
         `deteamproject.TLC_dataset.yellow_august` AS y
     JOIN
@@ -30,7 +32,8 @@ yellow_august AS (
 yellow_september AS (
     SELECT
         y.*,
-        l.*
+        l.*,
+        TIMESTAMP_TRUNC(TIMESTAMP(FORMAT_TIMESTAMP('%Y-%m-%d %H:%M:%S', TIMESTAMP_SUB(TIMESTAMP_SUB(tpep_pickup_datetime, INTERVAL EXTRACT(HOUR FROM tpep_pickup_datetime) HOUR), INTERVAL EXTRACT(MINUTE FROM tpep_pickup_datetime) MINUTE))), HOUR) AS weather_date
     FROM
         `deteamproject.TLC_dataset.yellow_september` AS y
     JOIN
@@ -41,7 +44,8 @@ yellow_september AS (
 yellow_october AS (
     SELECT
         y.*,
-        l.*
+        l.*,
+        TIMESTAMP_TRUNC(TIMESTAMP(FORMAT_TIMESTAMP('%Y-%m-%d %H:%M:%S', TIMESTAMP_SUB(TIMESTAMP_SUB(tpep_pickup_datetime, INTERVAL EXTRACT(HOUR FROM tpep_pickup_datetime) HOUR), INTERVAL EXTRACT(MINUTE FROM tpep_pickup_datetime) MINUTE))), HOUR) AS weather_date
     FROM
         `deteamproject.TLC_dataset.yellow_october` AS y
     JOIN
@@ -52,7 +56,8 @@ yellow_october AS (
 yellow_november AS (
     SELECT
         y.*,
-        l.*
+        l.*,
+        TIMESTAMP_TRUNC(TIMESTAMP(FORMAT_TIMESTAMP('%Y-%m-%d %H:%M:%S', TIMESTAMP_SUB(TIMESTAMP_SUB(tpep_pickup_datetime, INTERVAL EXTRACT(HOUR FROM tpep_pickup_datetime) HOUR), INTERVAL EXTRACT(MINUTE FROM tpep_pickup_datetime) MINUTE))), HOUR) AS weather_date
     FROM
         `deteamproject.TLC_dataset.yellow_november` AS y
     JOIN
@@ -63,7 +68,8 @@ yellow_november AS (
 yellow_december AS (
     SELECT
         y.*,
-        l.*
+        l.*,
+        TIMESTAMP_TRUNC(TIMESTAMP(FORMAT_TIMESTAMP('%Y-%m-%d %H:%M:%S', TIMESTAMP_SUB(TIMESTAMP_SUB(tpep_pickup_datetime, INTERVAL EXTRACT(HOUR FROM tpep_pickup_datetime) HOUR), INTERVAL EXTRACT(MINUTE FROM tpep_pickup_datetime) MINUTE))), HOUR) AS weather_date
     FROM
         `deteamproject.TLC_dataset.yellow_december` AS y
     JOIN
@@ -82,3 +88,5 @@ UNION ALL
 SELECT * FROM yellow_november
 UNION ALL
 SELECT * FROM yellow_december
+
+
