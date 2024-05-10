@@ -38,3 +38,8 @@ Data Storage used was Big Query via GCS and we used python scripts and jupyter n
 ----------------------
 Feel free to view our Power BI visualization: 
 [Link](https://cuny907-my.sharepoint.com/:u:/r/personal/xavier_souffront68_login_cuny_edu/Documents/de_project.pbix?csf=1&web=1&e=tW7NYZ)
+
+
+**Presentation**
+----------------------
+[Link] ("C:\Users\16466\Downloads\Group 10.pptx.pdf")
