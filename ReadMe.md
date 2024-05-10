@@ -42,4 +42,4 @@ Feel free to view our Power BI visualization:
 
 **Presentation**
 ----------------------
-[Link] ("C:\Users\16466\Downloads\Group 10.pptx.pdf")
+[Link] (C:\Users\16466\Desktop\cis4400Team10-1\Group 10.pptx.pdf)
